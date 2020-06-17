@@ -113,8 +113,18 @@ Car.prototype.fill = function (gallons){
   this.tank = this.tank + gallons;
 }
 
-carOne.fill(32); // initializing fill to fill 32 gallons into the car
+carOne.fill(20); // initializing fill to fill 32 gallons into the car
 console.log(carOne); // console log car object to check if tank was filled properly
+
+
+// STRETCH GOALS
+
+// takes a distance and adds it to the odometer and decreases the fuel tank
+Car.prototype.drive = function(distance){
+  this.odometer = this.odometer + distance;
+  this.tank = this.tank - (distance / this.milesPerGallon);
+    return this.tank;
+}
 
 /*
   TASK 3
