@@ -104,7 +104,7 @@ function Car(model, milesPerGallon, tank, odometer) {
 
 }
 // building a new car obj
-const carOne = new Car('tacoma', 24);
+const carOne = new Car('tacoma', 20);
 
 console.log(carOne); //Checking if car object is built correctly
 
@@ -118,20 +118,21 @@ console.log(carOne); // console log car object to check if tank was filled prope
 
 
 // STRETCH GOALS
-console.log(carOne);
-// takes a distance and adds it to the odometer and decreases the fuel tank
-Car.prototype.drive = function(distance){
-  this.odometer = this.odometer + distance;
-  this.tank = this.tank - (distance / this.milesPerGallon);
-    return this.tank;
-    if(this.tank = 0){
-      return this.tank;
-      return this.odometer;
-      console.log(`I ran out of fuel at ${this.odometer}`);
-    }
-}
-console.log(carOne.drive(480));
 
+// takes a distance and adds it to the odometer and decreases the fuel tank
+Car.prototype.drive = function(distance) {
+  let remaining = this.tank * this.milesPerGallon;
+  if (remaining <= distance) {
+    this.odometer += remaining;
+    this.tank = 0;
+    return `I ran out of fuel at ${this.odometer}!`;
+  } else {
+    this.odometer += distance;
+    this.tank -= distance/this.milesPerGallon;
+  }
+}
+console.log(carOne.drive(200)); // invoking drive method on car
+console.log(carOne); // consoling car to check to see if tank decreased, and odometer increased
 /*
   TASK 3
     - Write a Baby constructor subclassing Person.
