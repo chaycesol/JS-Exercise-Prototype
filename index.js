@@ -168,10 +168,10 @@ console.log(babyOne.toString()); //checking to see if parent methods were inheri
   TASK 4
 
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. Global Binding - when in global scope, 'this' takes values from window/console
+  2. Implicit Binding - whenever a function is called by a preceding dot, the object to the left of the dot is 'this'
+  3. New binding - when new is used, it refers to the specific instance of the object that is created and returned by the constructor function
+  4. Explicit Binding - when using call or apply methods, 'this' becomes explicitly defined
 */
 
 
