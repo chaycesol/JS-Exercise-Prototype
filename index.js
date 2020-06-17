@@ -118,13 +118,19 @@ console.log(carOne); // console log car object to check if tank was filled prope
 
 
 // STRETCH GOALS
-
+console.log(carOne);
 // takes a distance and adds it to the odometer and decreases the fuel tank
 Car.prototype.drive = function(distance){
   this.odometer = this.odometer + distance;
   this.tank = this.tank - (distance / this.milesPerGallon);
     return this.tank;
+    if(this.tank = 0){
+      return this.tank;
+      return this.odometer;
+      console.log(`I ran out of fuel at ${this.odometer}`);
+    }
 }
+console.log(carOne.drive(480));
 
 /*
   TASK 3
