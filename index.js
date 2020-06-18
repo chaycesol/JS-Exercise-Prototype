@@ -39,9 +39,46 @@ Airplane.prototype.land = function () {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
-
+// creating a constructor function
+// it takes 3 properties name, and and stomach which is an empty array
+function Person(name, age, stomach) {
+  this.name = name;
+  this.age = age;
+  this.stomach = [];
 }
+
+// create an eat method that gives the person the ability to eat something edible - it has a param of something that we can pass food into
+// if the stomach length is < 10, person can eat, otherise, they cant
+// we want to push argument of something edible to the array(stomach)
+Person.prototype.eat = function (edible){
+  if (this.stomach.length < 10){
+    this.stomach.push(edible);
+  }
+}
+
+// we need to create a poop method
+Person.prototype.poop = function() {
+  this.stomach = []
+  }
+
+// method called to String - needs to return string with name and age
+Person.prototype.toString = function(){
+  return `${this.name}, ${this.age}`;
+}
+
+//create my obj
+const personOne = new Person('Chayce', 32);
+
+console.log(personOne.toString());
+
+personOne.eat('tacos');
+personOne.eat('fried chicken');
+personOne.eat('shashimi');
+console.log(personOne.stomach); // check if the array is populating
+
+personOne.poop(); // emptys the array
+
+console.log(personOne.stomach); // checks empty array 
 
 /*
   TASK 2
@@ -57,10 +94,45 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
+// creating a constructor function
+// it takes 2 properties model, milesPerGallon. They also have a tank and odometer that initialize at 0.
+function Car(model, milesPerGallon, tank, odometer) {
+  this.model = model;
+  this.milesPerGallon = milesPerGallon;
+  this.tank = 0;
+  this.odometer = 0;
 
 }
+// building a new car obj
+const carOne = new Car('tacoma', 20);
 
+console.log(carOne); //Checking if car object is built correctly
+
+// Allows car to get filled up via .fill method
+Car.prototype.fill = function (gallons){
+  this.tank = this.tank + gallons;
+}
+
+carOne.fill(20); // initializing fill to fill 32 gallons into the car
+console.log(carOne); // console log car object to check if tank was filled properly
+
+
+// STRETCH GOALS
+
+// takes a distance and adds it to the odometer and decreases the fuel tank
+Car.prototype.drive = function(distance) {
+  let remaining = this.tank * this.milesPerGallon;
+  if (remaining <= distance) {
+    this.odometer += remaining;
+    this.tank = 0;
+    return `I ran out of fuel at ${this.odometer}!`;
+  } else {
+    this.odometer += distance;
+    this.tank -= distance/this.milesPerGallon;
+  }
+}
+console.log(carOne.drive(200)); // invoking drive method on car
+console.log(carOne); // consoling car to check to see if tank decreased, and odometer increased
 /*
   TASK 3
     - Write a Baby constructor subclassing Person.
@@ -68,18 +140,39 @@ function Car() {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
 
+// Creating function that creates Baby subclassing Person
+function Baby(name, age, favoriteToy) {
+  Person.call(this, name, age);
+  this.favoriteToy = favoriteToy;
 }
+
+// Declares methods to inherit from Parent constrctor
+Baby.prototype = Object.create(Person.prototype);
+
+// creating play method
+Baby.prototype.play = function (){
+  return `Playing with ${this.favoriteToy}`;
+}
+
+
+
+// creating new object
+const babyOne = new Baby('Bob', 1, 'rattle');
+console.log(babyOne); //checking baby returns all values from parent correctly and updated toy
+console.log(babyOne.play()); //checking if play method is working properly
+console.log(personOne.toString()); 
+console.log(babyOne.toString()); //checking to see if parent methods were inherited
+
 
 /* 
   TASK 4
 
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. Global Binding - when in global scope, 'this' takes values from window/console
+  2. Implicit Binding - whenever a function is called by a preceding dot, the object to the left of the dot is 'this'
+  3. New binding - when new is used, it refers to the specific instance of the object that is created and returned by the constructor function
+  4. Explicit Binding - when using call or apply methods, 'this' becomes explicitly defined
 */
 
 
